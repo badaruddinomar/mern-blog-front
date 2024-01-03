@@ -20,7 +20,7 @@ const UserDetail = () => {
     const fethcHandler = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${backendUrl}/user-details/${user.id}`, {
+        const response = await fetch(`${backendUrl}/user-details/${user?.id}`, {
           credentials: "include",
           headers: { "Content-Type": "application/json" },
         });
@@ -64,15 +64,18 @@ const UserDetail = () => {
     data.append("link", link);
     data.append("file", files[0]);
 
-    const response = await fetch(`${backendUrl}/user-details-edit/${user.id}`, {
-      method: "PATCH",
-      credentials: "include",
-      body: data,
-    });
+    const response = await fetch(
+      `${backendUrl}/user-details-edit/${user?.id}`,
+      {
+        method: "PATCH",
+        credentials: "include",
+        body: data,
+      }
+    );
     if (response.ok) setSubmitting(false);
     if (response.ok) setRedirect(true);
   };
-  if (redirect) return <Navigate to={`/user-profile/${user.id}`} />;
+  if (redirect) return <Navigate to={`/user-profile/${user?.id}`} />;
   return (
     <>
       {loading ? (
