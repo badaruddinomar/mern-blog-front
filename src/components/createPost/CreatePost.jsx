@@ -42,8 +42,8 @@ const CreatePost = () => {
 
     const response = await fetch(`${backendUrl}/create-post`, {
       method: "Post",
-      credentials: "include",
       body: data,
+      credentials: "include",
     });
     const result = await response.json();
 

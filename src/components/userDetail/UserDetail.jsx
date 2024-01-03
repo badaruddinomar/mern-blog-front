@@ -21,8 +21,9 @@ const UserDetail = () => {
       try {
         setLoading(true);
         const response = await fetch(`${backendUrl}/user-details/${user?.id}`, {
-          credentials: "include",
+          method: "GET",
           headers: { "Content-Type": "application/json" },
+          credentials: "include",
         });
         const data = await response.json();
         setUsername(data.username);
@@ -68,8 +69,8 @@ const UserDetail = () => {
       `${backendUrl}/user-details-edit/${user?.id}`,
       {
         method: "PATCH",
-        credentials: "include",
         body: data,
+        credentials: "include",
       }
     );
     if (response.ok) setSubmitting(false);

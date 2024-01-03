@@ -22,10 +22,7 @@ const SearchBar = () => {
     if (searchData === "") return;
 
     setLoading(true);
-    const response = await fetch(`${backendUrl}/search?search=${searchData}`, {
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
-    });
+    const response = await fetch(`${backendUrl}/search?search=${searchData}`);
 
     const data = await response.json();
     setSearchedPosts(data?.data);

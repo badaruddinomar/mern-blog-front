@@ -22,8 +22,9 @@ const EditPost = () => {
   useEffect(() => {
     const fetchHandler = async () => {
       const response = await fetch(`${backendUrl}/single-post/${id}`, {
-        credentials: "include",
+        method: "GET",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
       });
       const data = await response.json();
 
@@ -58,9 +59,8 @@ const EditPost = () => {
 
     const response = await fetch(`${backendUrl}/edit-post/${id}`, {
       method: "PATCH",
-      // headers: { "Content-Type": "application/json" },
-      credentials: "include",
       body: data,
+      credentials: "include",
     });
     const result = await response.json();
     if (response.ok) setLoading(false);

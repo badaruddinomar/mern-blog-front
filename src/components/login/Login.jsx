@@ -34,8 +34,8 @@ const Login = () => {
       const response = await fetch(`${backendUrl}/login`, {
         method: "POST",
         body: JSON.stringify({ email, password }),
-        credentials: "include",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
       });
       const result = await response.json();
 

@@ -12,10 +12,7 @@ const Home = () => {
   useEffect(() => {
     const fetchHandler = async () => {
       setLoading(true);
-      const response = await fetch(`${backendUrl}/post`, {
-        credentials: "include",
-        headers: { "content-type": "application/json" },
-      });
+      const response = await fetch(`${backendUrl}/post`);
       const data = await response.json();
       setPostData(data?.data);
       if (response?.ok) return setLoading(false);

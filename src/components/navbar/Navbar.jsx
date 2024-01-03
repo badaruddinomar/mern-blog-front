@@ -26,13 +26,8 @@ const Navbar = () => {
 
   useEffect(() => {
     const fetchHandler = async () => {
-      const response = await fetch(`${backendUrl}/profile`, {
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-      });
+      const response = await fetch(`${backendUrl}/profile`);
       const data = await response.json();
-      console.log(data);
-
       if (response.ok) {
         dispatch(loginAction(data));
       }
@@ -43,8 +38,9 @@ const Navbar = () => {
   useEffect(() => {
     const fetchHandler = async () => {
       const response = await fetch(`${backendUrl}/user-details/${user?.id}`, {
-        credentials: "include",
+        method: "GET",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
       });
       const data = await response.json();
       setUserInfo(data);
@@ -55,9 +51,9 @@ const Navbar = () => {
 
   const logOutHandler = async () => {
     const response = await fetch(`${backendUrl}/logout`, {
-      credentials: "include",
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      credentials: "include",
     });
     const result = await response.json();
 
