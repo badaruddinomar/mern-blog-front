@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import Toast from "../toast/Toast";
 import "./login.css";
 import { backendUrl } from "../helper";
+import { loginAction, logoutAction } from "../../store/userReducer";
 
 const Login = () => {
   const [redirect, setRedirect] = useState(false);
@@ -14,16 +15,6 @@ const Login = () => {
   const [toastMessage, setToastMessage] = useState("");
 
   const dispatch = useDispatch();
-  const isLoggedIn = () => {
-    dispatch({
-      type: "isLoggedIn",
-    });
-  };
-  const notLoggedIn = () => {
-    dispatch({
-      type: "notLoggedIn",
-    });
-  };
 
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -50,7 +41,7 @@ const Login = () => {
 
       if (response.ok) {
         setLoading(false);
-        isLoggedIn();
+        dispatch(loginAction(result.user));
 
         setSuccess(true);
         setToastMessage(result.message);
@@ -60,7 +51,7 @@ const Login = () => {
         }, 1500);
       } else {
         setLoading(true);
-        notLoggedIn();
+        dispatch(logoutAction());
 
         setToastMessage(result.message);
         setError(true);
@@ -73,7 +64,7 @@ const Login = () => {
       setEmail("");
       setPassword("");
     } catch (error) {
-      // console.log(error);
+      dispatch(logoutAction());
     }
   };
 

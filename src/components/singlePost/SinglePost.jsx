@@ -8,7 +8,7 @@ import "./singlePost.css";
 import { backendUrl } from "../helper";
 
 const SinglePost = () => {
-  const { userData } = useSelector((state) => state.custom);
+  const { user } = useSelector((state) => state.userReducer);
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
 
@@ -48,7 +48,7 @@ const SinglePost = () => {
               </span>
             </div>
 
-            {postData?.author?._id === userData?.id && (
+            {postData?.author?._id === user?.id && (
               <Link
                 className="edit-btn btn opacity-hover"
                 to={`/edit-post/${id}`}

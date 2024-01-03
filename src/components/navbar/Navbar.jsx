@@ -8,10 +8,11 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toast from "../toast/Toast";
 import avatar from "./../../images/avatar.png";
 import { backendUrl } from "../helper";
+import { loginAction, logoutAction } from "../../store/userReducer";
 
 const Navbar = () => {
-  const { loggedIn } = useSelector((state) => state.custom);
-  const [userData, setUserData] = useState({});
+  const { isAuthenticated, user } = useSelector((state) => state.userReducer);
+
   const [userInfo, setUserInfo] = useState({});
   const [menuClicked, setMenuClicked] = useState(false);
   const [error, setError] = useState(Boolean);
@@ -23,13 +24,6 @@ const Navbar = () => {
     setMenuClicked(!menuClicked);
   };
 
-  const notLoggedIn = () => {
-    dispatch({
-      type: "notLoggedIn",
-      payload: undefined,
-    });
-  };
-
   useEffect(() => {
     const fetchHandler = async () => {
       const response = await fetch(`${backendUrl}/profile`, {
@@ -37,38 +31,29 @@ const Navbar = () => {
         headers: { "Content-Type": "application/json" },
       });
       const data = await response.json();
-      setUserData(data);
 
       const isLoggedIn = (userData) => {
-        dispatch({
-          type: "isLoggedIn",
-          payload: userData,
-        });
+        dispatch(loginAction(userData));
       };
       if (response.ok) {
         isLoggedIn(data);
       }
     };
-
     fetchHandler();
-  }, [dispatch, loggedIn]);
+  }, [dispatch]);
 
   useEffect(() => {
     const fetchHandler = async () => {
-      const response = await fetch(
-        `${backendUrl}/user-details/${userData?.id}`,
-        {
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-
+      const response = await fetch(`${backendUrl}/user-details/${user?.id}`, {
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+      });
       const data = await response.json();
       setUserInfo(data);
     };
 
     fetchHandler();
-  }, [userData]);
+  }, [user?.id]);
 
   const logOutHandler = async () => {
     const response = await fetch(`${backendUrl}/logout`, {
@@ -79,7 +64,7 @@ const Navbar = () => {
     const result = await response.json();
 
     if (response.ok) {
-      notLoggedIn();
+      dispatch(logoutAction());
     }
 
     if (response.ok) {
@@ -119,7 +104,7 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="nav-user-info flex-row">
-          {loggedIn ? (
+          {isAuthenticated ? (
             <Link
               className="link logout opacity-hover"
               onClick={logOutHandler}
@@ -133,7 +118,7 @@ const Navbar = () => {
             </Link>
           )}
 
-          {loggedIn ? (
+          {isAuthenticated ? (
             <Link
               className="link create-post opacity-hover"
               to={"/create-post"}
@@ -145,10 +130,10 @@ const Navbar = () => {
               Register
             </Link>
           )}
-          {loggedIn && (
+          {isAuthenticated && (
             <Link
               className="user-avatar flex-row"
-              to={`/user-details/${userData?.id}`}
+              to={`/user-details/${user?.id}`}
             >
               <img src={userInfo?.cover || avatar} alt="avatar" />
               <p className="username opacity-hover">
@@ -172,7 +157,7 @@ const Navbar = () => {
           </div>
         </div>
         <div className={`menubar flex-row ${menuClicked ? "active" : ""}`}>
-          {loggedIn ? (
+          {isAuthenticated ? (
             <Link
               className="link opacity-hover"
               onClick={logOutHandler}
@@ -186,7 +171,7 @@ const Navbar = () => {
             </Link>
           )}
 
-          {loggedIn ? (
+          {isAuthenticated ? (
             <Link className="link opacity-hover" to={"/create-post"}>
               Create Post
             </Link>

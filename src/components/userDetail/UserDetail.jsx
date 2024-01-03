@@ -1,12 +1,13 @@
 import { useState, useEffect, useCallback } from "react";
 // import { backendUrl } from "./../helper";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import ClipLoader from "react-spinners/ClipLoader";
 import "./userDetail.css";
 import { backendUrl } from "../helper";
+import { useSelector } from "react-redux";
 
 const UserDetail = () => {
-  const { id } = useParams();
+  const { user } = useSelector((state) => state.userReducer);
   const [username, setUsername] = useState("");
   const [desc, setDesc] = useState("");
   const [link, setLink] = useState("");
@@ -19,7 +20,7 @@ const UserDetail = () => {
     const fethcHandler = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${backendUrl}/user-details/${id}`, {
+        const response = await fetch(`${backendUrl}/user-details/${user.id}`, {
           credentials: "include",
           headers: { "Content-Type": "application/json" },
         });
@@ -33,7 +34,7 @@ const UserDetail = () => {
       }
     };
     fethcHandler();
-  }, [id]);
+  }, [user.id]);
 
   useEffect(() => {
     fetchdata();
@@ -63,7 +64,7 @@ const UserDetail = () => {
     data.append("link", link);
     data.append("file", files[0]);
 
-    const response = await fetch(`/user-details-edit/${id}`, {
+    const response = await fetch(`${backendUrl}/user-details-edit/${user.id}`, {
       method: "PATCH",
       credentials: "include",
       body: data,
@@ -71,7 +72,7 @@ const UserDetail = () => {
     if (response.ok) setSubmitting(false);
     if (response.ok) setRedirect(true);
   };
-  if (redirect) return <Navigate to={`/user-profile/${id}`} />;
+  if (redirect) return <Navigate to={`/user-profile/${user.id}`} />;
   return (
     <>
       {loading ? (

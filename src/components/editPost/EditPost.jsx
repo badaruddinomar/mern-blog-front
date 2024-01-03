@@ -58,6 +58,7 @@ const EditPost = () => {
 
     const response = await fetch(`${backendUrl}/edit-post/${id}`, {
       method: "PATCH",
+      // headers: { "Content-Type": "application/json" },
       credentials: "include",
       body: data,
     });

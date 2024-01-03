@@ -3,11 +3,11 @@ import SearchBar from "../searchBar/SearchBar";
 import Posts from "../posts/Posts";
 
 const SearchTearm = () => {
-  const { sPosts } = useSelector((state) => state.custom);
+  const { posts } = useSelector((state) => state.userReducer);
   return (
     <>
       <SearchBar />
-      <Posts postData={sPosts} />
+      <Posts postData={posts} />
     </>
   );
 };

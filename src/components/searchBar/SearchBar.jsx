@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import "./searchBar.css";
 import { useDispatch } from "react-redux";
 import { backendUrl } from "../helper";
-
+import { postsAction } from "../../store/userReducer";
 const SearchBar = () => {
   const dispatch = useDispatch();
   const [searchedPosts, setSearchedPosts] = useState([]);
@@ -15,10 +15,7 @@ const SearchBar = () => {
     setSearchData(event.target.value);
   };
   useEffect(() => {
-    dispatch({
-      type: "searchPosts",
-      payload: searchedPosts,
-    });
+    dispatch(postsAction(searchedPosts));
   }, [dispatch, searchedPosts]);
 
   const searchHandler = useCallback(async () => {

@@ -14,8 +14,8 @@ function Register() {
   const [desc, setDesc] = useState("");
   const [link, setLink] = useState("");
   const [files, setFiles] = useState("");
-  const [error, setError] = useState(Boolean);
-  const [success, setSuccess] = useState(Boolean);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
   const [toastMessage, setToastMessage] = useState("");
 
   const userNameChangeHandler = (event) => {
