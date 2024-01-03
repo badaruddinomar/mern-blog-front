@@ -29,7 +29,7 @@ const Login = () => {
     try {
       event.preventDefault();
       setLoading(true);
-      // if (email === "" || password === "") return;
+      if (email === "" || password === "") return;
 
       const response = await fetch(`${backendUrl}/login`, {
         method: "POST",
@@ -41,7 +41,7 @@ const Login = () => {
 
       if (response.ok) {
         setLoading(false);
-        dispatch(loginAction(result.user));
+        dispatch(loginAction(result));
 
         setSuccess(true);
         setToastMessage(result.message);

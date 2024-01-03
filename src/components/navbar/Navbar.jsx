@@ -31,12 +31,10 @@ const Navbar = () => {
         headers: { "Content-Type": "application/json" },
       });
       const data = await response.json();
+      console.log(data);
 
-      const isLoggedIn = (userData) => {
-        dispatch(loginAction(userData));
-      };
       if (response.ok) {
-        isLoggedIn(data);
+        dispatch(loginAction(data));
       }
     };
     fetchHandler();
