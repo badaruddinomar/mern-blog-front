@@ -8,7 +8,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toast from "../toast/Toast";
 import avatar from "./../../images/avatar.png";
 import { backendUrl } from "../helper";
-import { loginAction, logoutAction } from "../../store/userReducer";
+import { logoutAction } from "../../store/userReducer";
 
 const Navbar = () => {
   const { isAuthenticated, user } = useSelector((state) => state.userReducer);
@@ -23,17 +23,6 @@ const Navbar = () => {
   const menuClikedHandler = () => {
     setMenuClicked(!menuClicked);
   };
-
-  useEffect(() => {
-    const fetchHandler = async () => {
-      const response = await fetch(`${backendUrl}/profile`);
-      const data = await response.json();
-      if (response.ok) {
-        dispatch(loginAction(data));
-      }
-    };
-    fetchHandler();
-  }, [dispatch]);
 
   useEffect(() => {
     const fetchHandler = async () => {
