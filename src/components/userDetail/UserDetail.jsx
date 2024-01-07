@@ -70,6 +70,7 @@ const UserDetail = () => {
       {
         method: "PATCH",
         body: data,
+        headers: { "Content-Type": "application/json" },
         credentials: "include",
       }
     );
