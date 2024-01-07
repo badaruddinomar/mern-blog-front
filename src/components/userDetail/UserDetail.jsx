@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 // import { backendUrl } from "./../helper";
-import { Navigate } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import ClipLoader from "react-spinners/ClipLoader";
 import "./userDetail.css";
 import { backendUrl } from "../helper";
@@ -15,6 +15,7 @@ const UserDetail = () => {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(Boolean);
   const [redirect, setRedirect] = useState(false);
+  const { id } = useParams();
 
   const fetchdata = useCallback(() => {
     const fethcHandler = async () => {
@@ -64,6 +65,7 @@ const UserDetail = () => {
     data.append("desc", desc);
     data.append("link", link);
     data.append("file", files[0]);
+    data.append("id", id);
 
     const response = await fetch(`${backendUrl}/userDetailsEdit/${user?.id}`, {
       method: "PATCH",
