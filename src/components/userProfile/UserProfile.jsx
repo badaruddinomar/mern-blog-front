@@ -17,7 +17,6 @@ const UserProfile = () => {
       setLoading(true);
       const response = await fetch(`${backendUrl}/user-profile/${id}`, {
         method: "GET",
-        headers: { "Content-Type": "application/json" },
         credentials: "include",
       });
       if (response.ok) setLoading(false);

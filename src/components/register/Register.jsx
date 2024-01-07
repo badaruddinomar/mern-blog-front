@@ -52,7 +52,6 @@ function Register() {
     const response = await fetch(`${backendUrl}/register`, {
       method: "POST",
       body: data,
-      headers: { "Content-Type": "application/json" },
       credentials: "include",
     });
     const result = await response.json();
