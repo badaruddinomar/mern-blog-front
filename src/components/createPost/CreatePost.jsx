@@ -40,7 +40,7 @@ const CreatePost = () => {
       data.set("content", content),
       data.set("file", files[0]);
 
-    const response = await fetch(`${backendUrl}/create-post`, {
+    const response = await fetch(`${backendUrl}/createPost`, {
       method: "Post",
       body: data,
       credentials: "include",

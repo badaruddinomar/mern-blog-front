@@ -15,7 +15,7 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchHandler = async () => {
       setLoading(true);
-      const response = await fetch(`${backendUrl}/user-profile/${id}`, {
+      const response = await fetch(`${backendUrl}/userProfile/${id}`, {
         method: "GET",
         credentials: "include",
       });

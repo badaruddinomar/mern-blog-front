@@ -20,7 +20,7 @@ const UserDetail = () => {
     const fethcHandler = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${backendUrl}/user-details/${user?.id}`, {
+        const response = await fetch(`${backendUrl}/userDetails/${user?.id}`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
@@ -65,14 +65,11 @@ const UserDetail = () => {
     data.append("link", link);
     data.append("file", files[0]);
 
-    const response = await fetch(
-      `${backendUrl}/user-details-edit/${user?.id}`,
-      {
-        method: "PATCH",
-        body: data,
-        credentials: "include",
-      }
-    );
+    const response = await fetch(`${backendUrl}/userDetailsEdit/${user?.id}`, {
+      method: "PATCH",
+      body: data,
+      credentials: "include",
+    });
     if (response.ok) setSubmitting(false);
     if (response.ok) setRedirect(true);
   };

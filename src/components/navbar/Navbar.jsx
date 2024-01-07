@@ -26,17 +26,20 @@ const Navbar = () => {
 
   useEffect(() => {
     const fetchHandler = async () => {
-      const response = await fetch(`${backendUrl}/user-details/${user?.id}`, {
+      const response = await fetch(`${backendUrl}/userDetails/${user?.id}`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
       });
       const data = await response.json();
+      if (!response.ok) {
+        dispatch(logoutAction());
+      }
       setUserInfo(data);
     };
 
     fetchHandler();
-  }, [user?.id]);
+  }, [user?.id, dispatch]);
 
   const logOutHandler = async () => {
     const response = await fetch(`${backendUrl}/logout`, {

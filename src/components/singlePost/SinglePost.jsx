@@ -16,7 +16,7 @@ const SinglePost = () => {
   useEffect(() => {
     const fetchHandler = async () => {
       setLoading(true);
-      const response = await fetch(`${backendUrl}/single-post/${id}`);
+      const response = await fetch(`${backendUrl}/singlePost/${id}`);
       const data = await response.json();
       setPostData(data.data);
       setLoading(false);

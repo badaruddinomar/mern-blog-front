@@ -21,7 +21,7 @@ const EditPost = () => {
   const { id } = useParams();
   useEffect(() => {
     const fetchHandler = async () => {
-      const response = await fetch(`${backendUrl}/single-post/${id}`, {
+      const response = await fetch(`${backendUrl}/singlePost/${id}`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -57,7 +57,7 @@ const EditPost = () => {
       data.set("content", content),
       data.set("file", files[0]);
 
-    const response = await fetch(`${backendUrl}/edit-post/${id}`, {
+    const response = await fetch(`${backendUrl}/editPost/${id}`, {
       method: "PATCH",
       body: data,
       credentials: "include",
