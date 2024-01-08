@@ -71,9 +71,12 @@ const UserDetail = () => {
       method: "PATCH",
       body: data,
       credentials: "include",
+      mode: "no-cors",
     });
-    if (response.ok) setSubmitting(false);
-    if (response.ok) setRedirect(true);
+    if (response.ok) {
+      setSubmitting(false);
+      setRedirect(true);
+    }
   };
   if (redirect) return <Navigate to={`/user-profile/${user?.id}`} />;
   return (
