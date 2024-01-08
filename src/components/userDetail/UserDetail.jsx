@@ -67,8 +67,8 @@ const UserDetail = () => {
     data.append("file", files[0]);
     data.append("id", id);
 
-    const response = await fetch(`${backendUrl}/userDetailsEdit/${user?.id}`, {
-      method: "PATCH",
+    const response = await fetch(`${backendUrl}/userDetailsEdit/${id}`, {
+      method: "PUT",
       body: data,
       credentials: "include",
     });
